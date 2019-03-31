@@ -14,17 +14,19 @@ public class Panmove : MonoBehaviour {
 
 
 	[SerializeField] float laritude = 20;
-
-	[SerializeField] float walkspeed = 1, maxwalkspeed = 10;
+	
+	[SerializeField] float walkspeed = 1;
+	 float maxwalkspeed;
 	[SerializeField] Vector3 step = new Vector3(0,6,0);
 	Quaternion nstep;
 	Vector3 norm;
 
-	LineRenderer duck;
+
 	// Use this for initialization
 	void Start () {
+		maxwalkspeed = walkspeed * 3;
 		body = gameObject.GetComponent<Rigidbody>();
-		duck = gameObject.AddComponent<LineRenderer>();
+
 		curdir = new Vector3(0,0,-1);
 		//nstep = Quaternion.Euler(step.x,-step.y,step.z);
 	}
@@ -42,13 +44,13 @@ public class Panmove : MonoBehaviour {
 		//Debug.Log(paddir);
 		
 			//Debuging
-		Debug.DrawLine(transform.position,transform.position+(paddir*4), Color.yellow);
-		Debug.DrawLine(transform.position,transform.position + dir.normalized * 4, Color.red);
+		//Debug.DrawLine(transform.position,transform.position+(paddir*4), Color.yellow);
+		//Debug.DrawLine(transform.position,transform.position + dir.normalized * 4, Color.red);
 		//Debug.Log(Vector3.Angle(dir,paddir));
-		Debug.Log(Vector3.SignedAngle(dir,paddir,Vector3.up));
-		Debug.Log(dir);
+		//Debug.Log(Vector3.SignedAngle(dir,paddir,Vector3.up));
+		//Debug.Log(dir);
 				//body.MoveRotation(); //!!!!
-		Debug.Log(body.velocity);
+		//Debug.Log(body.velocity);
 			//Rotating
 		
 		curdir = body.rotation.eulerAngles;
