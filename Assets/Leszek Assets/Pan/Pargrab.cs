@@ -13,11 +13,13 @@ public class Pargrab : MonoBehaviour {
 	[SerializeField] Vector3 whereforce =new Vector3(0,1,-1);
 
 	[SerializeField] GameObject picked;
+
+	[SerializeField] float gravityforce = -20f;
 	bool ispicked = false;
 	// Use this for initialization
 	void Start () {
 		col = gameObject.GetComponent<BoxCollider>();
-		Physics.gravity = new Vector3(0,-20f,0);
+		Physics.gravity = new Vector3(0,gravityforce,0);
 	}
 	
 	// Update is called once per frame
