@@ -88,7 +88,7 @@ public class Pargrab : MonoBehaviour {
 
 	void mycollision()
 	{
-		collist = Physics.OverlapBox(gameObject.transform.GetChild(0).position, gameObject.transform.GetChild(0).transform.localScale / 2, Quaternion.identity, m_LayerMask);
+		collist = Physics.OverlapBox(gameObject.transform.Find("Collider").position, gameObject.transform.GetChild(0).transform.localScale / 2, Quaternion.identity, m_LayerMask);
 	}
 
 	
