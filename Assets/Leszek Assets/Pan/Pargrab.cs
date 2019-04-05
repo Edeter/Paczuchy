@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class Pargrab : MonoBehaviour {
@@ -16,18 +17,28 @@ public class Pargrab : MonoBehaviour {
 
 	[SerializeField] float gravityforce = -20f;
 	bool ispicked = false;
+
+	float passedtime;
+	float throwforce;
+	bool justclicked = false;
+	
+	public Image obr;
+	
 	// Use this for initialization
 	void Start () {
 		col = gameObject.GetComponent<BoxCollider>();
 		Physics.gravity = new Vector3(0,gravityforce,0);
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		mycollision();
+		obr.fillAmount = throwforce;
 		
 		if (Input.GetButtonDown("Grab"))
 		{
+			justclicked = !justclicked;
 			if (!ispicked)
 			{
 				
@@ -42,12 +53,18 @@ public class Pargrab : MonoBehaviour {
 						}
 				}
 			}
-			else if (ispicked)
+
+
+		}
+		else if(Input.GetButtonUp("Grab") && !justclicked)
+		{
+			passedtime = 0;
+			if (ispicked)
 			{
 				Rigidbody temprb = picked.GetComponent<Rigidbody>();
 				temprb.isKinematic = false;
 				temprb.useGravity = true;
-				temprb.AddRelativeForce(whereforce,ForceMode.Impulse);
+				temprb.AddRelativeForce(whereforce*throwforce,ForceMode.VelocityChange);
 				picked.transform.parent = null;
 				picked.GetComponent<Collider>().enabled = true;
 				picked = null;
@@ -55,15 +72,15 @@ public class Pargrab : MonoBehaviour {
 				Debug.Log("!!!!");
 
 			}
-			{
-				
-			}
 
-
-		
-		
 		}
-		
+		if(Input.GetButton("Grab") && ispicked)
+		{
+			if (!justclicked) passedtime+= Time.deltaTime;
+			throwforce = Mathf.Abs(Mathf.Sin(passedtime));
+			Debug.Log(throwforce);
+			
+		}
 	}
 
 	void pickup(Collider pom)

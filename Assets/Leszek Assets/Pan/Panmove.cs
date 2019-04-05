@@ -15,8 +15,8 @@ public class Panmove : MonoBehaviour {
 
 	[SerializeField] float laritude = 20;
 	
-	[SerializeField] float walkspeed = 1;
-	 float maxwalkspeed;
+	[SerializeField] Vector3 walkspeed = new Vector3(0,1,1);
+	 Vector3 maxwalkspeed;
 	[SerializeField] Vector3 step = new Vector3(0,6,0);
 	Quaternion nstep;
 	Vector3 norm;
@@ -68,9 +68,9 @@ public class Panmove : MonoBehaviour {
 	
 		if ((Input.GetAxis("Horizontal") !=0)||(Input.GetAxis("Vertical") !=0))
 		{
-			if (body.velocity.magnitude < maxwalkspeed)
+			if (body.velocity.magnitude < maxwalkspeed.magnitude)
 			{
-			body.velocity += dir.normalized * walkspeed *Time.deltaTime;	
+			body.AddRelativeForce(walkspeed/Time.deltaTime,ForceMode.Force);	
 			}
 			
 

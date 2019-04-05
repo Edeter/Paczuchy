@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicCameraFolow : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class BasicCameraFolow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		gameObject.transform.position = spy.transform.position + new Vector3(0,zerozero.y,zerozero.z);
-		
+		if(Input.GetKeyDown(KeyCode.R)){
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
+		}
 	}
 }
