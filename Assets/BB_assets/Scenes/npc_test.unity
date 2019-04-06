@@ -171,6 +171,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 136745930610308274, guid: 691e77baf6171474b96c7391844147e4,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7628cf2cdf6655046b5a430b859a4123,
+        type: 2}
+    - target: {fileID: 54486882828618682, guid: 691e77baf6171474b96c7391844147e4,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54486882828618682, guid: 691e77baf6171474b96c7391844147e4,
+        type: 2}
+      propertyPath: m_Drag
+      value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 114289971840216900, guid: 691e77baf6171474b96c7391844147e4,
+        type: 2}
+      propertyPath: laritude
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114289971840216900, guid: 691e77baf6171474b96c7391844147e4,
+        type: 2}
+      propertyPath: walkspeed.z
+      value: -3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 691e77baf6171474b96c7391844147e4, type: 2}
   m_IsPrefabAsset: 0
@@ -564,12 +590,12 @@ Prefab:
     - target: {fileID: 224531368065120274, guid: c7c3c2c38a304d84abf87e6d0a79922b,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 10.71
+      value: 10.710022
       objectReference: {fileID: 0}
     - target: {fileID: 224531368065120274, guid: c7c3c2c38a304d84abf87e6d0a79922b,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 6.31
+      value: 6.3099976
       objectReference: {fileID: 0}
     - target: {fileID: 224531368065120274, guid: c7c3c2c38a304d84abf87e6d0a79922b,
         type: 2}
@@ -689,6 +715,7 @@ MonoBehaviour:
   target: {fileID: 217388369}
   radius: 40
   fi: 57
+  smoothFactor: 2.14
 --- !u!1 &1690227650
 GameObject:
   m_ObjectHideFlags: 0
