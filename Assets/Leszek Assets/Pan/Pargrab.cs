@@ -69,7 +69,7 @@ public class Pargrab : MonoBehaviour {
 				picked.GetComponent<Collider>().enabled = true;
 				picked = null;
 				ispicked=false;
-				Debug.Log("!!!!");
+				//Debug.Log("!!!!");
 
 			}
 

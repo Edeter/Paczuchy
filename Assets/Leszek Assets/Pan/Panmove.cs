@@ -12,6 +12,8 @@ public class Panmove : MonoBehaviour {
 	Vector3 dir = new Vector3(0,0,-1);
 	Vector3 defdir = new Vector3(0,0,-1);
 
+	Vector3 well;
+
 
 	[SerializeField] float laritude = 20;
 	
@@ -55,26 +57,33 @@ public class Panmove : MonoBehaviour {
 		
 		curdir = body.rotation.eulerAngles;
 		
+
+		Debug.Log(body.velocity.magnitude);
 		if (Vector3.SignedAngle(dir,paddir,Vector3.up) > laritude)
 			{
 				body.rotation = body.rotation * Quaternion.Euler(step);
 				dir = Quaternion.Euler(step)*dir;
 			}
-				if (Vector3.SignedAngle(dir,paddir,Vector3.up) < -laritude)
+		if (Vector3.SignedAngle(dir,paddir,Vector3.up) < -laritude)
 			{
 				body.rotation = body.rotation * Quaternion.Euler(-step);
 				dir = Quaternion.Euler(-step)*dir;
 			}
 	
 		if ((Input.GetAxis("Horizontal") !=0)||(Input.GetAxis("Vertical") !=0))
-		{
+			{/* 
 			if (body.velocity.magnitude < maxwalkspeed.magnitude)
 			{
-			body.AddRelativeForce(walkspeed/Time.deltaTime,ForceMode.Force);	
+			body.AddRelativeForce(walkspeed,ForceMode.Force);	
 			}
-			
+			else
+			{
+				Vector3.ClampMagnitude(body.velocity,maxwalkspeed.magnitude);
+			}*/
 
-		}
+			body.velocity += dir.normalized * walkspeed.z * -1  ;
+			body.velocity = Vector3.ClampMagnitude(body.velocity, walkspeed.z*-4 );
+			}
 
 	}
 
