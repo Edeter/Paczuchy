@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class Pargrab : MonoBehaviour {
 
 
+	LineRenderer lr;
+	[SerializeField] int vertexcount;
 	BoxCollider col;
 	public LayerMask m_LayerMask;
 	[SerializeField] Vector3 grabpoint = new Vector3(0,6,0);
@@ -23,16 +25,25 @@ public class Pargrab : MonoBehaviour {
 	bool justclicked = false;
 	
 	public Image obr;
+
+	float angle;
+	float vel;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake() {
 		col = gameObject.GetComponent<BoxCollider>();
 		Physics.gravity = new Vector3(0,gravityforce,0);
+		lr = GetComponent<LineRenderer>();
+		angle = Vector3.Angle(whereforce,new Vector3(0,0,whereforce.z));
+	}
+	void Start () {
+		
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		vel = Vector3.Magnitude(whereforce*throwforce);
 		mycollision();
 		obr.fillAmount = throwforce;
 		
@@ -76,6 +87,7 @@ public class Pargrab : MonoBehaviour {
 		}
 		if(Input.GetButton("Grab") && ispicked)
 		{
+			RenderArc();
 			if (!justclicked) passedtime+= Time.deltaTime;
 			throwforce = Mathf.Abs(Mathf.Sin(passedtime));
 			Debug.Log(throwforce);
@@ -108,5 +120,37 @@ public class Pargrab : MonoBehaviour {
 		collist = Physics.OverlapBox(gameObject.transform.Find("Collider").position, gameObject.transform.GetChild(0).transform.localScale / 2, Quaternion.identity, m_LayerMask);
 	}
 
+		// Line renderer Trajectory
+	void RenderArc()
+	{
+		lr.positionCount= vertexcount+1;
+		lr.SetPositions(CalculateArcArray());
+
+	}
+	Vector3[] CalculateArcArray()
+	{
+		Vector3[] arcarray = new Vector3[vertexcount +1];
+		float h = transform.TransformPoint(gameObject.transform.position).y + grabpoint.y;
+		//float maxdistance = ((vel*vel * Mathf.Sin(2*angle)) / -Physics.gravity.y);
+		float maxdistance = Mathf.Sqrt(((2*vel*vel)/(-Physics.gravity.y)) *(h + (vel*vel)/(-2 * Physics.gravity.y) ));
+		Debug.Log(maxdistance);
+		for (int i = 0; i <= vertexcount; i++)
+		{
+			float t = (float)i/ (float)vertexcount;
+			arcarray[i] = CalculateArcPoint(t, maxdistance) + transform.position;
+			
+		}
+
+		return arcarray;
+		
+	}
+	Vector3 CalculateArcPoint(float t, float maxdistance)
+	{
+			float x = t * maxdistance;
+			float y = grabpoint.y + x * Mathf.Tan(angle) - (-Physics.gravity.y*x*x)/(2 *vel*vel * Mathf.Cos(angle)* Mathf.Cos(angle));
+			Vector3 tak = new Vector3(0,y,-x);
+			tak = transform.rotation * tak;
+		return tak ;
+	}
 	
 }
