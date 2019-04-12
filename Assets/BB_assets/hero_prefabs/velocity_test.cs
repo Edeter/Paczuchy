@@ -16,7 +16,7 @@ public class velocity_test : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(rb.velocity.magnitude);
+        //Debug.Log(rb.velocity.magnitude);
         if(lasttime + dt < Time.time)
         {
             lasttime = Time.time;
