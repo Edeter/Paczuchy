@@ -95,6 +95,7 @@ public class NpcQuestScript : MonoBehaviour {
     IEnumerator setInactiveDelayed()
     {
         yield return new WaitForSeconds(inactiveDelay);
+        if(!playerFound)
         refImage.gameObject.SetActive(false);
     }
 }
