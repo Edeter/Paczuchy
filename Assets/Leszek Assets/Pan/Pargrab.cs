@@ -9,7 +9,6 @@ public class Pargrab : MonoBehaviour {
 
 	LineRenderer lr;
 	[SerializeField] int vertexcount;
-	BoxCollider col;
 	public LayerMask m_LayerMask;
 	[SerializeField] Vector3 grabpoint = new Vector3(0,6,0);
 	[SerializeField] Collider[] collist;
@@ -31,7 +30,6 @@ public class Pargrab : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake() {
-		col = gameObject.GetComponent<BoxCollider>();
 		Physics.gravity = new Vector3(0,gravityforce,0);
 		lr = GetComponent<LineRenderer>();
 		angle = Vector3.Angle(whereforce,new Vector3(0,0,whereforce.z));
