@@ -43,7 +43,7 @@ public class Pargrab : MonoBehaviour {
 	void Update () {
 		vel = Vector3.Magnitude(whereforce*throwforce);
 		mycollision();
-		obr.fillAmount = throwforce;
+		
 		
 		if (Input.GetButtonDown("Grab"))
 		{
@@ -73,24 +73,40 @@ public class Pargrab : MonoBehaviour {
 				Rigidbody temprb = picked.GetComponent<Rigidbody>();
 				temprb.isKinematic = false;
 				temprb.useGravity = true;
-				temprb.AddRelativeForce(whereforce*throwforce,ForceMode.VelocityChange);
+				temprb.AddForce((transform.rotation*whereforce)*throwforce ,ForceMode.VelocityChange);
 				picked.transform.parent = null;
 				picked.GetComponent<Collider>().enabled = true;
 				picked = null;
 				ispicked=false;
 				//Debug.Log("!!!!");
+				Invoke("NullArc",2);
 
 			}
 
 		}
 		if(Input.GetButton("Grab") && ispicked)
 		{
-			RenderArc();
+			
 			if (!justclicked) passedtime+= Time.deltaTime;
 			throwforce = Mathf.Abs(Mathf.Sin(passedtime));
 			Debug.Log(throwforce);
+			RenderArc();
+			
 			
 		}
+		obr.fillAmount = throwforce;
+	}
+	void NullArc()
+	{
+		
+			Vector3[] zero = new Vector3[vertexcount];
+			for (int i = 0; i <vertexcount; i++)
+			{
+				zero[i] = new Vector3(0,0,0);
+			}
+			lr.SetPositions(zero);
+			
+		
 	}
 
 	void pickup(Collider pom)
@@ -106,8 +122,9 @@ public class Pargrab : MonoBehaviour {
 		pom.GetComponent<Collider>().enabled = false;
 		
 		
-		pom.transform.rotation = gameObject.transform.rotation;
+		pom.transform.rotation = Quaternion.Euler(pom.transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,transform.rotation.eulerAngles.z);
 		pom.transform.localPosition = grabpoint;
+		
 
 		ispicked = true;
 		picked = pom.gameObject;
